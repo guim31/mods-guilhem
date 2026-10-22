@@ -1,0 +1,48 @@
+{
+  "name": "mods-guilhem",
+  "owner": {
+    "name": "Guilhem"
+  },
+  "plugins": [
+    {
+      "name": "switchboard",
+      "source": "./switchboard"
+    },
+    {
+      "name": "apparence",
+      "source": "./apparence"
+    },
+    {
+      "name": "brain-dump",
+      "source": "./brain-dump"
+    },
+    {
+      "name": "helper-desk",
+      "source": "./helper-desk"
+    },
+    {
+      "name": "cache-clock",
+      "source": "./cache-clock"
+    },
+    {
+      "name": "handoff",
+      "source": "./handoff"
+    },
+    {
+      "name": "reflect",
+      "source": "./reflect"
+    },
+    {
+      "name": "chat-inventory",
+      "source": "./chat-inventory"
+    },
+    {
+      "name": "screen-share",
+      "source": "./screen-share"
+    },
+    {
+      "name": "replay-theater",
+      "source": "./replay-theater"
+    }
+  ]
+}

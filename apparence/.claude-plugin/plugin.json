@@ -1,0 +1,6 @@
+{
+  "name": "apparence",
+  "version": "0.2.0",
+  "description": "Distingue visuellement le travail intermédiaire de la synthèse finale, avec /apparence pour changer de style",
+  "types": "./types/index.d.ts"
+}

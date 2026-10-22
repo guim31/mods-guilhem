@@ -1,0 +1,6 @@
+{
+  "name": "chat-inventory",
+  "version": "0.1.0",
+  "description": "Panneau « Dans ce chat » façon Cowork : objectif, tâches, connecteurs appelés, skills, fichiers lus, créés et modifiés, liens",
+  "types": "./types/index.d.ts"
+}

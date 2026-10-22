@@ -1,0 +1,5 @@
+{
+  "name": "brain-dump",
+  "version": "0.1.0",
+  "description": "Intercepte les longs brain dumps dictés, pose quelques questions de clarification puis les réécrit en prompt structuré (tâche, raison, garde-fous, critères de fin)"
+}

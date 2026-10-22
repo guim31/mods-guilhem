@@ -1,0 +1,6 @@
+{
+  "name": "helper-desk",
+  "version": "0.1.0",
+  "description": "Barre de progression violette des tâches au-dessus de la saisie et panneau des sous-agents (crabe coloré, avancement, coût)",
+  "types": "./types/index.d.ts"
+}

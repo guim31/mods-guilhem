@@ -1,0 +1,6 @@
+{
+  "name": "switchboard",
+  "version": "0.1.0",
+  "description": "/mods : la liste de tous les mods et plugins chargés, pour couper ou rallumer chacun et masquer les panneaux qu'ils ouvrent",
+  "types": "./types/index.d.ts"
+}

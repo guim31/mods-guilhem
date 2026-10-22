@@ -1,0 +1,6 @@
+{
+  "name": "reflect",
+  "version": "0.1.0",
+  "description": "Repère les règles durables que tu donnes à Claude (« n'utilise jamais… », « toujours… ») et propose de les enregistrer : mémoire auto, CLAUDE.md global ou du projet, second cerveau",
+  "types": "./types/index.d.ts"
+}

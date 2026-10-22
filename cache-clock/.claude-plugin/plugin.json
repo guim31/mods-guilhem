@@ -1,0 +1,6 @@
+{
+  "name": "cache-clock",
+  "version": "0.1.0",
+  "description": "Compte à rebours avant que le cache du chat refroidisse, et /keepwarm pour le garder chaud jusqu'au prochain message (2 h au plus)",
+  "types": "./types/index.d.ts"
+}

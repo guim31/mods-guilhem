@@ -1,0 +1,6 @@
+{
+  "name": "screen-share",
+  "version": "0.1.0",
+  "description": "Mode partage d'écran (/screenshare) : noms, e-mails, téléphones, montants, IBAN, adresses et IP deviennent des barres grises à l'affichage, sans rien changer à ce que Claude lit",
+  "types": "./types/index.d.ts"
+}

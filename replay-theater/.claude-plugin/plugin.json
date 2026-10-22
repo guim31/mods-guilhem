@@ -1,0 +1,6 @@
+{
+  "name": "replay-theater",
+  "version": "0.1.0",
+  "description": "Garde chaque version des fichiers que Claude modifie ; /replay rejoue les changements un par un et permet de revenir à une version antérieure",
+  "types": "./types/index.d.ts"
+}
