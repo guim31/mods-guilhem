@@ -1,6 +1,6 @@
 {
   "name": "handoff",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Rédige un prompt de passation détaillé (fichiers, outils, skills, liens, décisions, suite) et ouvre un nouveau chat avec : à 250 k tokens, quand le cache est froid, ou avec /handoff",
   "types": "./types/index.d.ts"
 }

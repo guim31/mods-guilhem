@@ -96,8 +96,23 @@ const transcriptTexte = async ($: EngineInterface) => {
   return lignes.join('\n\n').slice(-150_000)
 }
 
+// Au premier plan : l'onglet Handoff passe devant les autres volets (quand la zone de saisie est vide).
 const ouvrirPane = async ($: EngineInterface) => {
-  await $.ui.open({ id: PANE, title: 'Handoff' })
+  await $.ui.open({ id: PANE, title: 'Handoff', focus: true })
+}
+
+// Une notification dans l'app, et une du système par notify-send (Linux) là où il existe.
+const prevenir = async ($: EngineInterface, texte: string) => {
+  $.ui.toast(texte, { timeoutMs: 15_000 })
+  await $.process.run(['notify-send', '-a', 'Claude Code', 'Handoff', texte]).catch(() => undefined)
+}
+
+// Rédaction ratée : le message retenu revient dans la zone de saisie, rien n'est perdu.
+const echec = async ($: EngineInterface, erreur: string, enAttente: string) => {
+  await update($, passation, p => ({ ...p, enCours: false, erreur }))
+  if (enAttente) await $.prompt.fill({ text: enAttente }).catch(() => undefined)
+  await ouvrirPane($)
+  $.ui.toast(enAttente ? `${erreur} Ton message est revenu dans la zone de saisie.` : erreur, { timeoutMs: 15_000 })
 }
 
 const generer = async ($: EngineInterface, consignes: string, enAttente: string) => {
@@ -118,7 +133,7 @@ const generer = async ($: EngineInterface, consignes: string, enAttente: string)
     }
     if (!reply.isAnswered || !reply.text.trim()) {
       const raison = reply.isAnswered ? 'réponse vide' : reply.reason
-      await update($, passation, p => ({ ...p, enCours: false, erreur: `Rédaction impossible (${raison}).` }))
+      await echec($, `Handoff : rédaction impossible (${raison}).`, enAttente)
       return
     }
     const texte = reply.text.trim()
@@ -129,9 +144,13 @@ const generer = async ($: EngineInterface, consignes: string, enAttente: string)
     await $.process.run(['mkdir', '-p', dossier])
     await $.fs.write(fichier, `${texte}\n`)
     await update($, passation, () => ({ texte, fichier, enCours: false, erreur: null }))
-    void ouvrirPane($)
+    await ouvrirPane($)
+    await prevenir(
+      $,
+      `Passation prête${enAttente ? ', avec ton message à la fin' : ''} : onglet Handoff, bouton « Nouveau chat avec ce prompt ». Rien ne part sans ton clic.`,
+    )
   } catch (err) {
-    await update($, passation, p => ({ ...p, enCours: false, erreur: `Rédaction interrompue : ${String(err)}` }))
+    await echec($, `Handoff : rédaction interrompue (${String(err)}).`, enAttente)
   } finally {
     $.ui.status(undefined)
   }
@@ -225,7 +244,9 @@ export const register: Register = on => {
     if (choix !== 'Handoff vers un nouveau chat') return next(e)
     const message = e.text
     $.clock.after(100, () => void generer($, '', message))
-    return { drop: 'Handoff en préparation : ton message sera repris à la fin du prompt de passation.' }
+    return {
+      drop: 'Handoff en préparation : ton message sera repris à la fin du prompt de passation. Il s’ouvrira dans l’onglet Handoff, à droite ; rien ne part sans ton clic.',
+    }
   })
 
   on('command.run', { command: 'handoff' }, async ($, e) => {
@@ -251,6 +272,9 @@ export const register: Register = on => {
     const fichier = p.fichier ?? ''
     return (
       <Box flexDirection="column" gap={1}>
+        <Text color="success" bold>
+          ✔ Passation prête : rien ne part tant que tu n’as pas cliqué sur « Nouveau chat avec ce prompt ».
+        </Text>
         <Text dimColor wrap="truncate-middle">
           {texte.split(/\s+/).length} mots · {fichier}
         </Text>
